@@ -34,7 +34,8 @@ var timeLeft = 1000;
 var gameOver = false;
 var pitfall = false;
 var reset = false;
-
+var highScore = 0;
+var score = 0;
 
 
 window.addEventListener("keydown", function (e) {
@@ -137,6 +138,11 @@ if (sPlat2.X < p.X + p.Width &&
    sPlat2.Y < p.Y + p.Height &&
    sPlat2.Height + sPlat2.Y > p.Y){
    alert("You Win!");
+    score = score + 1;
+	if(score > highScore){
+    highScore = score;
+   }
+	timeLeft = timeLeft + 175;
 	reset = true;
 }
 
@@ -144,7 +150,9 @@ if (sPlat2.X < p.X + p.Width &&
 if(timeLeft < 0)
 gameOver = true;
 if(gameOver){
-alert("You Lose!");
+alert("Times UP!");
+timeLeft = 1000;
+score = 0;
 reset = true;
    }
    
@@ -153,6 +161,8 @@ reset = true;
    pitfall = true;
    if(pitfall){
    alert("You Died");
+   timeLeft = 1000;
+   score = 0;
    reset = true;
    }
    
@@ -165,6 +175,8 @@ reset = true;
    right = false;
    isJumping = false;
    reset = false;
+   
+   
    }
    
 gfx.clearRect(0,0,gameCanv.width,gameCanv.height);
@@ -174,10 +186,12 @@ gfx.drawImage(sPlat.Sprite,sPlat.X,sPlat.Y);
 gfx.drawImage(sPlat1.Sprite,sPlat1.X,sPlat1.Y);
 gfx.drawImage(sPlat2.Sprite,sPlat2.X,sPlat2.Y);
 gfx.font="14px Verdana";
-gfx.fillText("TIME: " + timeLeft,250,12);
+gfx.fillText("TIME: " + timeLeft,150,12);
+gfx.fillText("SCORE: " + score, 250,12);
+gfx.fillText("HIGHSCORE: " + highScore, 350,12);
 
 
-//timeLeft = timeLeft - 1;
+timeLeft = timeLeft - 1;
 setTimeout(MainLoop,1000/60);
 }
 
