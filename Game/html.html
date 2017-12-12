@@ -6,7 +6,7 @@
 <p id="debug4"></p>
 
 
-<body onkeydown= "keyDown(event)" onkeyup= "keyUp(event)"></body>
+<body ></body>
  
 <canvas	id="graphic" height=400 width=600  style="position:abosolute; top:0; left:0;background-image:url('assets/castle.jpg');"></canvas>
  
@@ -15,7 +15,7 @@ var gameCanv = document.getElementById("graphic");
 var gfx = gameCanv.getContext('2d');
 
 								//   x  y   w  h
-var p = new Obj("assets/mario1.jpg",300,300,34,60);
+var p = new Obj("assets/mario.png",300,300,34,59);
 var floor = new Obj("assets/platform.png",300,380,500,5);  
 var sPlat = new Obj("assets/smallPlat1.png",500,300,75,5);  
 var sPlat1 = new Obj("assets/smallPlat1.png",300,200,100,5);  
@@ -39,10 +39,7 @@ var highScore = 0;
 var score = 0;
 
 
-window.addEventListener("keydown", function (e) {
-  if (e.defaultPrevented) {
-    return;
-  }}, true);
+document.onkeydown = keyDown;
   
 function keyDown(e){
 
@@ -59,7 +56,7 @@ jump.play();
 isJumping = true;
 }
 }
-
+document.onkeyup = keyUp;
 
 function keyUp(e){
 if((e.keyCode) = " "){
@@ -141,6 +138,7 @@ if (sPlat2.X < p.X + p.Width &&
    sPlat2.Height + sPlat2.Y > p.Y){
    alert("You Win!");
     score = score + 1;
+	
 	if(score > highScore){
     highScore = score;
    }
@@ -220,16 +218,11 @@ this.Weight = 0;
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
-    this.sound.setAttribute("preload", "auto");
-    this.sound.setAttribute("controls", "none");
-    this.sound.style.display = "none";
     document.body.appendChild(this.sound);
     this.play = function(){
         this.sound.play();
     }
-    this.stop = function(){
-        this.sound.pause();
-    }
+
 }
 
 
